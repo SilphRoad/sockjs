@@ -36,7 +36,7 @@ class WebSocketTransport(Transport):
         while True:
             msg = yield from ws.receive()
 
-            if msg.type == web.MsgType.text:
+            if msg.type == web.WSMsgType.text:
                 data = msg.data
                 if not data:
                     continue
@@ -54,9 +54,9 @@ class WebSocketTransport(Transport):
 
                 yield from session._remote_message(text)
 
-            elif msg.type == web.MsgType.close:
+            elif msg.type == web.WSMsgType.close:
                 yield from session._remote_close()
-            elif msg.type in (web.MsgType.closed, web.MsgType.closing):
+            elif msg.type in (web.WSMsgType.closed, web.WSMsgType.closing):
                 yield from session._remote_closed()
                 break
 
