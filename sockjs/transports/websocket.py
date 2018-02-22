@@ -23,7 +23,7 @@ class WebSocketTransport(Transport):
             except SessionIsClosed:
                 break
 
-            ws.send_str(data)
+            yield from ws.send_str(data)
 
             if frame == FRAME_CLOSE:
                 try:
